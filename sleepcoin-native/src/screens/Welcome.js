@@ -1,0 +1,44 @@
+import React, { Component } from "react";
+import { View, Text, AsyncStorage } from "react-native";
+import Slides from "../components/Slides";
+import { logoutUser } from "../redux/actions";
+import { connect } from "react-redux";
+import jwt_decode from "jwt-decode";
+
+const SLIDE_DATA = [
+  { text: "Sleep is essential.", color: "black" },
+  { text: "A lack of sleep can cause issues.", color: "black" },
+  { text: "Get rewarded for sleeping.", color: "black" }
+];
+
+class WelcomeScreen extends Component {
+  async componentWillMount() {
+    try {
+      const token = await AsyncStorage.getItem("jwtToken");
+      const decoded = jwt_decode(token);
+      const currentTime = Date.now() / 1000;
+
+      if (decoded.exp < currentTime) {
+        this.props.logoutUser();
+      } else {
+        this.props.navigation.navigate("Main");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  render() {
+    return (
+      <Slides
+        data={SLIDE_DATA}
+        onComplete={() => this.props.navigation.navigate("Register")}
+      />
+    );
+  }
+}
+
+export default connect(
+  null,
+  { logoutUser }
+)(WelcomeScreen);
