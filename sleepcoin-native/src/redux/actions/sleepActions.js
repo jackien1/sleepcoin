@@ -15,7 +15,7 @@ export const trackSleep = (
 
     const res = await axios({
       method: "post",
-      url: "https://5380d4ca.ngrok.io/api/sleep/newSleep",
+      url: "https://48162b9d.ngrok.io/api/sleep/newSleep",
       data: { data, date }
     });
 
@@ -35,7 +35,7 @@ export const getSleep = () => async dispatch => {
 
     const { data } = await axios({
       method: "get",
-      url: "https://5380d4ca.ngrok.io/api/sleep/getSleep"
+      url: "https://48162b9d.ngrok.io/api/sleep/getSleep"
     });
 
     dispatch({ type: types.GET_NIGHTS, payload: data });

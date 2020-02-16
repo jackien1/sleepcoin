@@ -11,3 +11,6 @@ export const END_REFRESH = "end_refresh";
 export const SET_CURRENT_USER = "set_current_user";
 export const START_AUTH_REFRESH = "start_auth_refresh";
 export const END_AUTH_REFRESH = "end_auth_refresh";
+export const GET_OFFERS = "get_offers";
+export const START_OFFER_REFRESH = "start_offer_refresh";
+export const END_OFFER_REFRESH = "end_offer_refresh";

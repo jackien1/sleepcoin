@@ -70,7 +70,7 @@ export const handleRegister = (
   try {
     const res = await axios({
       method: "post",
-      url: "https://5380d4ca.ngrok.io/api/auth/register",
+      url: "https://48162b9d.ngrok.io/api/auth/register",
       data: { userName, age, email, password, password_confirm }
     });
 
@@ -88,7 +88,7 @@ export const handleLogin = (email, password, callback) => async dispatch => {
   try {
     const res = await axios({
       method: "post",
-      url: "https://5380d4ca.ngrok.io/api/auth/login",
+      url: "https://48162b9d.ngrok.io/api/auth/login",
       data: { email, password }
     });
 
@@ -116,11 +116,30 @@ export const getUser = () => async dispatch => {
 
     const { data } = await axios({
       method: "get",
-      url: "https://5380d4ca.ngrok.io/api/auth/getUser"
+      url: "https://48162b9d.ngrok.io/api/auth/getUser"
     });
 
     dispatch(setCurrentUser(data));
     dispatch({ type: types.END_AUTH_REFRESH, payload: data });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getOffers = () => async dispatch => {
+  try {
+    dispatch({ type: types.START_OFFER_REFRESH, payload: data });
+
+    const token = await AsyncStorage.getItem("jwtToken");
+    axios.defaults.headers.common["Authorization"] = token;
+
+    const { data } = await axios({
+      method: "get",
+      url: "https://48162b9d.ngrok.io/api/shop/getOffers"
+    });
+
+    dispatch({ type: types.GET_OFFERS, payload: data });
+    dispatch({ type: types.END_OFFER_REFRESH, payload: data });
   } catch (e) {
     console.log(e);
   }

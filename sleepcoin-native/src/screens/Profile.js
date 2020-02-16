@@ -23,7 +23,10 @@ class Profile extends Component {
   };
 
   renderChart = () => {
-    if (this.props.auth.user.sleepData) {
+    if (
+      this.props.auth.user.sleepData &&
+      this.props.auth.user.coinData.length > 0
+    ) {
       return (
         <LineChart
           data={{
@@ -165,7 +168,8 @@ class Profile extends Component {
             <Text
               style={{
                 color: this.state.coinHistory ? "white" : "purple",
-                fontSize: 20
+                fontSize: 20,
+                fontWeight: "bold"
               }}
             >
               Sleep History

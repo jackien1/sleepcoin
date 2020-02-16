@@ -10,7 +10,9 @@ const INITIAL_STATE = {
   loginPassword: "",
   user: "",
   isAuthenticated: false,
-  refreshing: false
+  refreshing: false,
+  offers: [],
+  offerRefreshing: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -41,6 +43,15 @@ export default (state = INITIAL_STATE, action) => {
 
     case types.END_AUTH_REFRESH:
       return { ...state, freshing: false };
+
+    case types.GET_OFFERS:
+      return { ...state, offers: action.payload };
+
+    case types.START_OFFER_REFRESH:
+      return { ...state, offerRefreshing: true };
+
+    case types.END_OFFER_REFRESH:
+      return { ...state, offerRefreshing: false };
 
     case types.SET_CURRENT_USER: {
       return {
