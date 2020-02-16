@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, ScrollView, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
+import { useKeepAwake } from "expo-keep-awake";
 
 let months = [
   "January",
@@ -34,12 +35,22 @@ class Slides extends Component {
     return this.props.data.map((slide, index) => {
       return (
         <View style={styles.slideStyle}>
-          <Text style={{ color: "white", fontSize: 35, fontWeight: "bold" }}>
-            {months[slide.month]}
-          </Text>
-          <Text style={{ color: "white", fontSize: 25 }}>
-            {days[slide.day]}
-          </Text>
+          <View style={{ alignItems: "center", marginTop: 100 }}>
+            <Text style={{ color: "white", fontSize: 40, fontWeight: "bold" }}>
+              {days[slide.day]}
+            </Text>
+            <Text style={{ color: "white", fontSize: 25 }}>
+              {months[slide.month]}
+            </Text>
+
+            <Button
+              title="Sleep"
+              containerStyle={{ marginTop: 20 }}
+              buttonStyle={{ backgroundColor: "purple" }}
+              titleStyle={{ fontSize: 20 }}
+              onPress={this.props.handlePress}
+            />
+          </View>
         </View>
       );
     });
@@ -67,8 +78,6 @@ class Slides extends Component {
 const styles = {
   slideStyle: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     width: SCREEN_WIDTH
   },
   textStyle: {

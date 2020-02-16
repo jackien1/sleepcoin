@@ -4,26 +4,38 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  Dimensions
+  Dimensions,
+  ActivityIndicator
 } from "react-native";
 import { Input, Button, Icon } from "react-native-elements";
 import { connect } from "react-redux";
 import TrackingSlides from "../components/TrackingSlides";
+import { Accelerometer } from "expo-sensors";
+import { activateKeepAwake, deactivateKeepAwake } from "expo-keep-awake";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
+let tracked = [];
 
 class Home extends Component {
   state = {
-    data: [
-      { month: 0, day: 0 },
-      { month: 0, day: 1 },
-      { month: 0, day: 2 },
-      { month: 0, day: 3 }
-    ]
+    data: [],
+    tracking: false
   };
 
+  setData = data => {
+    tracked.push(data);
+  };
+
+  componentDidMount() {
+    var d = new Date();
+    var month = d.getMonth();
+    var day = d.getDay();
+    Accelerometer.setUpdateInterval(1000);
+    this.setState({ data: [{ month, day }] });
+  }
+
   render() {
-    return (
+    return this.state.tracking ? (
       <View
         style={{
           flex: 1,
@@ -32,7 +44,39 @@ class Home extends Component {
           backgroundColor: "black"
         }}
       >
-        <TrackingSlides data={this.state.data} />
+        <ActivityIndicator size="large" color="purple" />
+        <Button
+          title="Wake Up"
+          containerStyle={{ marginTop: 20 }}
+          buttonStyle={{ backgroundColor: "purple" }}
+          titleStyle={{ fontSize: 20 }}
+          onPress={() => {
+            Accelerometer.removeAllListeners();
+            this.setState({ tracking: false });
+            deactivateKeepAwake();
+            var trackedJSON = JSON.stringify(tracked);
+          }}
+        />
+      </View>
+    ) : (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "black"
+        }}
+      >
+        <TrackingSlides
+          data={this.state.data}
+          handlePress={() => {
+            Accelerometer.addListener(accelerometerData => {
+              this.setData(accelerometerData);
+            });
+            this.setState({ tracking: true });
+            activateKeepAwake();
+          }}
+        />
       </View>
     );
   }
