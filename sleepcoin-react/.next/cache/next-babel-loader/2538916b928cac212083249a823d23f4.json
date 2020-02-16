@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const SET_CURRENT_USER = \"set-current-user\";","map":{"version":3,"sources":["/Users/jackieni/dev/hackathon/sleepcoin/sleepcoin-react/redux/types.js"],"names":["SET_CURRENT_USER"],"mappings":"AAAA,OAAO,MAAMA,gBAAgB,GAAG,kBAAzB","sourcesContent":["export const SET_CURRENT_USER = \"set-current-user\";\n"]},"metadata":{},"sourceType":"module"}
