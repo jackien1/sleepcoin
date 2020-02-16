@@ -1515,12 +1515,12 @@
     "9545242630824": {
       "events": {},
       "links": {},
-      "address": "0x278a919eE05105aB6733748c7E7d3f797D5Ed080",
-      "transactionHash": "0x3b84565c68be50db6e41cb2eec575703a3ccbb14498fa145881d4ec235e5fa27"
+      "address": "0x1c1F286DD358B69793871428734584Bfe684B864",
+      "transactionHash": "0x54899c4ee6a1f85c65434874ef5a435c77937510abcc1ac963348d4d9b599b9b"
     }
   },
   "schemaVersion": "3.0.11",
-  "updatedAt": "2020-02-16T02:49:56.496Z",
+  "updatedAt": "2020-02-16T10:20:27.691Z",
   "devdoc": {
     "methods": {
       "allowance(address,address)": {
