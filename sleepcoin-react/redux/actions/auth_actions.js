@@ -6,7 +6,7 @@ export const registerUser = (user, callback) => async dispatch => {
   try {
     const res = await axios({
       method: "post",
-      url: "https://e034fc0d.ngrok.io/api/auth/registerAdvertiser",
+      url: "https://48162b9d.ngrok.io/api/auth/registerAdvertiser",
       data: { ...user }
     });
 
@@ -24,7 +24,7 @@ export const loginUser = (user, callback) => async dispatch => {
   try {
     const res = await axios({
       method: "post",
-      url: "http://localhost:5000/api/auth/loginAdvertiser",
+      url: "https://48162b9d.ngrok.io/api/auth/loginAdvertiser",
       data: { ...user }
     });
 
@@ -35,6 +35,40 @@ export const loginUser = (user, callback) => async dispatch => {
     callback();
   } catch (err) {
     console.log(err);
+  }
+};
+
+export const getUser = () => async dispatch => {
+  try {
+    axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+      "jwtToken"
+    );
+
+    const { data } = await axios({
+      method: "get",
+      url: "https://48162b9d.ngrok.io/api/auth/getAdvertiser"
+    });
+
+    dispatch(setCurrentUser(data));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getCampaigns = () => async dispatch => {
+  try {
+    axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+      "jwtToken"
+    );
+
+    const { data } = await axios({
+      method: "get",
+      url: "https://48162b9d.ngrok.io/api/shop/getCampaigns"
+    });
+
+    dispatch({ type: types.GET_CAMPAIGNS, payload: data });
+  } catch (e) {
+    console.log(e);
   }
 };
 

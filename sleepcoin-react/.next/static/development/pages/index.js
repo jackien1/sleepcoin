@@ -46855,13 +46855,15 @@ function (_Component) {
 /*!***************************************!*\
   !*** ./redux/actions/auth_actions.js ***!
   \***************************************/
-/*! exports provided: registerUser, loginUser, setCurrentUser, logoutUser */
+/*! exports provided: registerUser, loginUser, getUser, getCampaigns, setCurrentUser, logoutUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerUser", function() { return registerUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loginUser", function() { return loginUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return getUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCampaigns", function() { return getCampaigns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCurrentUser", function() { return setCurrentUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logoutUser", function() { return logoutUser; });
 /* harmony import */ var _babel_runtime_corejs2_core_js_object_define_property__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
@@ -46911,7 +46913,7 @@ var registerUser = function registerUser(user, callback) {
             _context.next = 3;
             return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_6___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_9___default()({
               method: "post",
-              url: "https://e034fc0d.ngrok.io/api/auth/registerAdvertiser",
+              url: "https://48162b9d.ngrok.io/api/auth/registerAdvertiser",
               data: _objectSpread({}, user)
             }));
 
@@ -46949,7 +46951,7 @@ var loginUser = function loginUser(user, callback) {
             _context2.next = 3;
             return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_6___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_9___default()({
               method: "post",
-              url: "http://localhost:5000/api/auth/loginAdvertiser",
+              url: "https://48162b9d.ngrok.io/api/auth/loginAdvertiser",
               data: _objectSpread({}, user)
             }));
 
@@ -46976,6 +46978,81 @@ var loginUser = function loginUser(user, callback) {
     }, null, null, [[0, 11]]);
   };
 };
+var getUser = function getUser() {
+  return function _callee3(dispatch) {
+    var _ref, data;
+
+    return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_6___default.a.async(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.prev = 0;
+            axios__WEBPACK_IMPORTED_MODULE_9___default.a.defaults.headers.common["Authorization"] = localStorage.getItem("jwtToken");
+            _context3.next = 4;
+            return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_6___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_9___default()({
+              method: "get",
+              url: "https://48162b9d.ngrok.io/api/auth/getAdvertiser"
+            }));
+
+          case 4:
+            _ref = _context3.sent;
+            data = _ref.data;
+            dispatch(setCurrentUser(data));
+            _context3.next = 12;
+            break;
+
+          case 9:
+            _context3.prev = 9;
+            _context3.t0 = _context3["catch"](0);
+            console.log(_context3.t0);
+
+          case 12:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, null, null, [[0, 9]]);
+  };
+};
+var getCampaigns = function getCampaigns() {
+  return function _callee4(dispatch) {
+    var _ref2, data;
+
+    return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_6___default.a.async(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.prev = 0;
+            axios__WEBPACK_IMPORTED_MODULE_9___default.a.defaults.headers.common["Authorization"] = localStorage.getItem("jwtToken");
+            _context4.next = 4;
+            return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_6___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_9___default()({
+              method: "get",
+              url: "https://48162b9d.ngrok.io/api/shop/getCampaigns"
+            }));
+
+          case 4:
+            _ref2 = _context4.sent;
+            data = _ref2.data;
+            dispatch({
+              type: _types__WEBPACK_IMPORTED_MODULE_8__["GET_CAMPAIGNS"],
+              payload: data
+            });
+            _context4.next = 12;
+            break;
+
+          case 9:
+            _context4.prev = 9;
+            _context4.t0 = _context4["catch"](0);
+            console.log(_context4.t0);
+
+          case 12:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, null, null, [[0, 9]]);
+  };
+};
 var setCurrentUser = function setCurrentUser(decoded) {
   return {
     type: _types__WEBPACK_IMPORTED_MODULE_8__["SET_CURRENT_USER"],
@@ -46996,7 +47073,7 @@ var logoutUser = function logoutUser(callback) {
 /*!********************************!*\
   !*** ./redux/actions/index.js ***!
   \********************************/
-/*! exports provided: registerUser, loginUser, setCurrentUser, logoutUser */
+/*! exports provided: registerUser, loginUser, getUser, getCampaigns, setCurrentUser, logoutUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -47005,6 +47082,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "registerUser", function() { return _auth_actions__WEBPACK_IMPORTED_MODULE_0__["registerUser"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "loginUser", function() { return _auth_actions__WEBPACK_IMPORTED_MODULE_0__["loginUser"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return _auth_actions__WEBPACK_IMPORTED_MODULE_0__["getUser"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getCampaigns", function() { return _auth_actions__WEBPACK_IMPORTED_MODULE_0__["getCampaigns"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setCurrentUser", function() { return _auth_actions__WEBPACK_IMPORTED_MODULE_0__["setCurrentUser"]; });
 
@@ -47018,17 +47099,19 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************!*\
   !*** ./redux/types.js ***!
   \************************/
-/*! exports provided: SET_CURRENT_USER */
+/*! exports provided: SET_CURRENT_USER, GET_CAMPAIGNS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_CURRENT_USER", function() { return SET_CURRENT_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_CAMPAIGNS", function() { return GET_CAMPAIGNS; });
 var SET_CURRENT_USER = "set-current-user";
+var GET_CAMPAIGNS = "get-campaigns";
 
 /***/ }),
 
-/***/ 1:
+/***/ 15:
 /*!*******************************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2F&absolutePagePath=%2FUsers%2Fjackieni%2Fdev%2Fhackathon%2Fsleepcoin%2Fsleepcoin-react%2Fpages%2Findex.js ***!
   \*******************************************************************************************************************************************************/
@@ -47051,5 +47134,5 @@ module.exports = dll_5f137288facb1107b491;
 
 /***/ })
 
-},[[1,"static/runtime/webpack.js","styles"]]]);
+},[[15,"static/runtime/webpack.js","styles"]]]);
 //# sourceMappingURL=index.js.map

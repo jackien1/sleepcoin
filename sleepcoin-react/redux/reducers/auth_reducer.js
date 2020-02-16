@@ -2,7 +2,8 @@ import * as types from "../types";
 
 const INITIAL_STATE = {
   user: {},
-  isAuthenticated: false
+  isAuthenticated: false,
+  campaigns: []
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -15,6 +16,13 @@ export default (state = INITIAL_STATE, action) => {
           action.payload.constructor === Object
         ),
         user: action.payload
+      };
+    }
+
+    case types.GET_CAMPAIGNS: {
+      return {
+        ...state,
+        campaigns: action.payload
       };
     }
 

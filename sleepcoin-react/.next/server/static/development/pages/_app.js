@@ -498,13 +498,15 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 /*!***************************************!*\
   !*** ./redux/actions/auth_actions.js ***!
   \***************************************/
-/*! exports provided: registerUser, loginUser, setCurrentUser, logoutUser */
+/*! exports provided: registerUser, loginUser, getUser, getCampaigns, setCurrentUser, logoutUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerUser", function() { return registerUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loginUser", function() { return loginUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return getUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCampaigns", function() { return getCampaigns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCurrentUser", function() { return setCurrentUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logoutUser", function() { return logoutUser; });
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "./redux/types.js");
@@ -525,7 +527,7 @@ const registerUser = (user, callback) => async dispatch => {
   try {
     const res = await axios__WEBPACK_IMPORTED_MODULE_1___default()({
       method: "post",
-      url: "https://e034fc0d.ngrok.io/api/auth/registerAdvertiser",
+      url: "https://48162b9d.ngrok.io/api/auth/registerAdvertiser",
       data: _objectSpread({}, user)
     });
     const {
@@ -543,7 +545,7 @@ const loginUser = (user, callback) => async dispatch => {
   try {
     const res = await axios__WEBPACK_IMPORTED_MODULE_1___default()({
       method: "post",
-      url: "http://localhost:5000/api/auth/loginAdvertiser",
+      url: "https://48162b9d.ngrok.io/api/auth/loginAdvertiser",
       data: _objectSpread({}, user)
     });
     const {
@@ -555,6 +557,37 @@ const loginUser = (user, callback) => async dispatch => {
     callback();
   } catch (err) {
     console.log(err);
+  }
+};
+const getUser = () => async dispatch => {
+  try {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.headers.common["Authorization"] = localStorage.getItem("jwtToken");
+    const {
+      data
+    } = await axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      method: "get",
+      url: "https://48162b9d.ngrok.io/api/auth/getAdvertiser"
+    });
+    dispatch(setCurrentUser(data));
+  } catch (e) {
+    console.log(e);
+  }
+};
+const getCampaigns = () => async dispatch => {
+  try {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.headers.common["Authorization"] = localStorage.getItem("jwtToken");
+    const {
+      data
+    } = await axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      method: "get",
+      url: "https://48162b9d.ngrok.io/api/shop/getCampaigns"
+    });
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_0__["GET_CAMPAIGNS"],
+      payload: data
+    });
+  } catch (e) {
+    console.log(e);
   }
 };
 const setCurrentUser = decoded => {
@@ -575,7 +608,7 @@ const logoutUser = callback => dispatch => {
 /*!********************************!*\
   !*** ./redux/actions/index.js ***!
   \********************************/
-/*! exports provided: registerUser, loginUser, setCurrentUser, logoutUser */
+/*! exports provided: registerUser, loginUser, getUser, getCampaigns, setCurrentUser, logoutUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -584,6 +617,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "registerUser", function() { return _auth_actions__WEBPACK_IMPORTED_MODULE_0__["registerUser"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "loginUser", function() { return _auth_actions__WEBPACK_IMPORTED_MODULE_0__["loginUser"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return _auth_actions__WEBPACK_IMPORTED_MODULE_0__["getUser"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getCampaigns", function() { return _auth_actions__WEBPACK_IMPORTED_MODULE_0__["getCampaigns"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setCurrentUser", function() { return _auth_actions__WEBPACK_IMPORTED_MODULE_0__["setCurrentUser"]; });
 
@@ -612,7 +649,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 const INITIAL_STATE = {
   user: {},
-  isAuthenticated: false
+  isAuthenticated: false,
+  campaigns: []
 };
 /* harmony default export */ __webpack_exports__["default"] = ((state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -621,6 +659,13 @@ const INITIAL_STATE = {
         return _objectSpread({}, state, {
           isAuthenticated: !(Object.keys(action.payload).length === 0 && action.payload.constructor === Object),
           user: action.payload
+        });
+      }
+
+    case _types__WEBPACK_IMPORTED_MODULE_0__["GET_CAMPAIGNS"]:
+      {
+        return _objectSpread({}, state, {
+          campaigns: action.payload
         });
       }
 
@@ -680,13 +725,15 @@ const initStore = initialState => {
 /*!************************!*\
   !*** ./redux/types.js ***!
   \************************/
-/*! exports provided: SET_CURRENT_USER */
+/*! exports provided: SET_CURRENT_USER, GET_CAMPAIGNS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_CURRENT_USER", function() { return SET_CURRENT_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_CAMPAIGNS", function() { return GET_CAMPAIGNS; });
 const SET_CURRENT_USER = "set-current-user";
+const GET_CAMPAIGNS = "get-campaigns";
 
 /***/ }),
 
