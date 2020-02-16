@@ -7,7 +7,10 @@ const INITIAL_STATE = {
   password: "",
   password_confirm: "",
   loginEmail: "",
-  loginPassword: ""
+  loginPassword: "",
+  user: "",
+  isAuthenticated: false,
+  refreshing: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -32,6 +35,23 @@ export default (state = INITIAL_STATE, action) => {
 
     case types.CHANGE_LOGIN_PASSWORD:
       return { ...state, loginPassword: action.payload };
+
+    case types.START_AUTH_REFRESH:
+      return { ...state, freshing: true };
+
+    case types.END_AUTH_REFRESH:
+      return { ...state, freshing: false };
+
+    case types.SET_CURRENT_USER: {
+      return {
+        ...state,
+        isAuthenticated: !(
+          Object.keys(action.payload).length === 0 &&
+          action.payload.constructor === Object
+        ),
+        user: action.payload
+      };
+    }
 
     default:
       return state;

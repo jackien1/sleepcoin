@@ -15,6 +15,26 @@ const User = new mongoose.Schema({
     required: true,
     unique: true
   },
+  address: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  privateKey: {
+    type: String,
+    unique: true,
+    require: true
+  },
+  ethAddress: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  ethPrivateKey: {
+    type: String,
+    unique: true,
+    required: true
+  },
   age: {
     type: Number,
     required: true

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, AsyncStorage } from "react-native";
 import Slides from "../components/Slides";
-import { logoutUser } from "../redux/actions";
+import { logoutUser, setCurrentUser } from "../redux/actions";
 import { connect } from "react-redux";
 import jwt_decode from "jwt-decode";
 
@@ -21,6 +21,7 @@ class WelcomeScreen extends Component {
       if (decoded.exp < currentTime) {
         this.props.logoutUser();
       } else {
+        this.props.setCurrentUser(decoded);
         this.props.navigation.navigate("Main");
       }
     } catch (e) {
@@ -40,5 +41,5 @@ class WelcomeScreen extends Component {
 
 export default connect(
   null,
-  { logoutUser }
+  { logoutUser, setCurrentUser }
 )(WelcomeScreen);
