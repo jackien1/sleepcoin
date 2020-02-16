@@ -8,6 +8,7 @@ const passport = require("passport");
 const authRouter = require("./routes/authRouter");
 const sleepRouter = require("./routes/sleepRouter");
 const gatewayRouter = require("./routes/gatewayRouter");
+const shopRouter = require("./routes/shopRouter");
 const mongoose = require("mongoose");
 require("./passport")(passport);
 const { MONGOOSE } = process.env;
@@ -28,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api/auth/", authRouter);
 app.use("/api/sleep/", sleepRouter);
 app.use("/api/gateway/", gatewayRouter);
+app.use("/api/shop/", shopRouter);
 app.use(passport.initialize());
 
 const server = http.createServer(app);
