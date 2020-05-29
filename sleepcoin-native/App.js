@@ -1,21 +1,76 @@
-import React, { Component } from "react";
-import { AsyncStorage } from "react-native";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import ReduxThunk from "redux-thunk";
-import reducers from "./src/redux/reducers";
-import Router from "./src/router";
+import React, { Component } from 'react';
+import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
+import { ThemeProvider } from 'react-native-elements';
+
+import reducers from './src/redux/reducers';
+import Router from './src/router';
 
 const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
 class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Router />
-      </Provider>
-    );
-  }
+    state = {
+        isLoadingComplete: false,
+    };
+
+    async componentDidMount() {
+        try {
+            await SplashScreen.preventAutoHideAsync();
+
+            // Load fonts
+            await Font.loadAsync({
+                Lato: require('./assets/fonts/Lato-Regular.ttf'),
+                'Lato-Bold': require('./assets/fonts/Lato-Bold.ttf'),
+                'Lato-Thin': require('./assets/fonts/Lato-Thin.ttf'),
+            });
+            await SplashScreen.hideAsync();
+            this.setState({ isLoadingComplete: true });
+        } catch (e) {
+            // We might want to provide this error information to an error reporting service
+            console.warn(e);
+        } finally {
+        }
+    }
+
+    render() {
+        const theme = {
+            Text: {
+                style: {
+                    fontFamily: 'Lato',
+                    color: '#9D9DFC',
+                },
+            },
+            Button: {
+                titleStyle: {
+                    fontFamily: 'Lato',
+                    color: '#181818',
+                },
+            },
+            Input: {
+                inputStyle: { fontFamily: 'Lato', color: '#9D9DFC' },
+                placeholderTextColor: '#9D9DFC',
+            },
+            colors: {
+                primary: '#9D9DFC',
+                secondary: '#181818',
+            },
+            Input: {},
+        };
+        if (this.state.isLoadingComplete) {
+            return (
+                <Provider store={store}>
+                    <ThemeProvider theme={theme}>
+                        <Router />
+                    </ThemeProvider>
+                </Provider>
+            );
+        } else {
+            return null;
+        }
+    }
 }
 
 export default App;
