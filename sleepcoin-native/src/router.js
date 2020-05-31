@@ -9,7 +9,8 @@ import Login from './screens/Login';
 import Home from './screens/Home';
 import Shop from './screens/Shop';
 import Profile from './screens/Profile';
-import { MaterialIcons } from '@expo/vector-icons';
+import TabBar from './components/TabBar';
+import SleepDetails from './screens/SleepDetails';
 
 const Stack = createStackNavigator();
 
@@ -17,46 +18,22 @@ const Tab = createBottomTabNavigator();
 
 function Main() {
     return (
-        <Tab.Navigator
-            tabBarOptions={{
-                activeTintColor: 'purple',
-                inactiveTintColor: 'white',
-                style: { backgroundColor: '#181818' },
-            }}
-        >
-            <Tab.Screen
-                name="Home"
-                component={Home}
-                options={{
-                    tabBarLabel: 'Home',
-                    tabBarIcon: ({ color, size }) => (
-                        <MaterialIcons name="home" color={color} size={size} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="Shop"
-                component={Shop}
-                options={{
-                    tabBarLabel: 'Shop',
-                    tabBarIcon: ({ color, size }) => (
-                        <MaterialIcons name="shopping-cart" color={color} size={size} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="Profile"
-                component={Profile}
-                options={{
-                    tabBarLabel: 'Profile',
-                    tabBarIcon: ({ color, size }) => (
-                        <MaterialIcons name="face" color={color} size={size} />
-                    ),
-                }}
-            />
+        <Tab.Navigator tabBar={(props) => <TabBar {...props}></TabBar>}>
+            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Shop" component={Shop} />
+            <Tab.Screen name="Profile" component={ProfileStackFunction} />
         </Tab.Navigator>
     );
 }
+
+const ProfileStack = createStackNavigator();
+
+const ProfileStackFunction = () => (
+    <ProfileStack.Navigator headerMode={null}>
+        <ProfileStack.Screen name="Profile" component={Profile} />
+        <ProfileStack.Screen name="SleepDetails" component={SleepDetails} />
+    </ProfileStack.Navigator>
+);
 
 class Router extends Component {
     render() {

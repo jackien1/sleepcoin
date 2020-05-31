@@ -8,7 +8,6 @@ import {
 } from 'react-native-responsive-screen';
 
 import { changeLoginEmail, changeLoginPassword, handleLogin } from '../redux/actions';
-import TabBar from '../components/TabBar';
 
 class Login extends Component {
     render() {
@@ -33,18 +32,14 @@ class Login extends Component {
                         Login
                     </Text>
                     <Input
-                        placeholderTextColor="#9D9DFC"
                         placeholder="Email"
                         value={this.props.auth.loginEmail}
-                        inputStyle={{ fontFamily: 'Lato', color: '#9D9DFC' }}
                         onChangeText={(text) => this.props.changeLoginEmail(text)}
                         titleStyle={{ fontSize: 18 }}
                     />
                     <Input
-                        placeholderTextColor="#9D9DFC"
                         placeholder="Password"
                         value={this.props.auth.loginPassword}
-                        inputStyle={{ fontFamily: 'Lato', color: '#9D9DFC' }}
                         onChangeText={(text) => this.props.changeLoginPassword(text)}
                         secureTextEntry={true}
                         titleStyle={{ fontSize: 18 }}
@@ -69,7 +64,6 @@ class Login extends Component {
                         onPress={() => this.props.navigation.goBack()}
                     />
                 </View>
-                <TabBar navigation={this.props.navigation} />
             </View>
         );
     }

@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { ThemeProvider } from 'react-native-elements';
+import { View } from 'react-native';
 
 import reducers from './src/redux/reducers';
 import Router from './src/router';
@@ -24,7 +25,7 @@ class App extends Component {
             await Font.loadAsync({
                 Lato: require('./assets/fonts/Lato-Regular.ttf'),
                 'Lato-Bold': require('./assets/fonts/Lato-Bold.ttf'),
-                'Lato-Thin': require('./assets/fonts/Lato-Thin.ttf'),
+                'Lato-Light': require('./assets/fonts/Lato-Light.ttf'),
             });
             await SplashScreen.hideAsync();
             this.setState({ isLoadingComplete: true });
@@ -57,7 +58,6 @@ class App extends Component {
                 primary: '#9D9DFC',
                 secondary: '#181818',
             },
-            Input: {},
         };
         if (this.state.isLoadingComplete) {
             return (

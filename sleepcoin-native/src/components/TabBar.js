@@ -13,9 +13,10 @@ const TabBar = (props) => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-around',
-
+                backgroundColor: '#181818',
                 width: vw(100),
-                marginVertical: 40,
+                paddingBottom: 40,
+                paddingTop: 10,
             }}
         >
             <Button
@@ -32,7 +33,7 @@ const TabBar = (props) => {
                         <Icon name="ios-moon" size={21} color="#181818" type="ionicon" />
                     </View>
                 }
-                onPress={() => console.log('nav to shopping')}
+                onPress={() => props.navigation.navigate('Home')}
             />
             <TouchableOpacity
                 style={{
@@ -44,7 +45,7 @@ const TabBar = (props) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}
-                onPress={() => console.log('nav to shopping')}
+                onPress={() => props.navigation.navigate('Shop')}
             >
                 <Icon name="shopping" size={25} color="#9D9DFC" type="material-community" />
             </TouchableOpacity>
@@ -58,7 +59,7 @@ const TabBar = (props) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}
-                onPress={() => console.log('nav to shopping')}
+                onPress={() => props.navigation.navigate('Profile')}
             >
                 <Icon name="user" size={25} color="#9D9DFC" type="feather" />
             </TouchableOpacity>

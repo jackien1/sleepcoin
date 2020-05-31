@@ -40,34 +40,26 @@ class Register extends Component {
                 />
                 <Input
                     placeholder="Age"
-                    placeholderTextColor="#9D9DFC"
                     titleStyle={{ fontSize: 18 }}
-                    inputStyle={{ fontFamily: 'Lato', color: '#9D9DFC' }}
                     value={this.props.auth.age}
                     onChangeText={(text) => this.props.changeAge(text)}
                 />
                 <Input
                     placeholder="Email"
-                    placeholderTextColor="#9D9DFC"
                     titleStyle={{ fontSize: 18 }}
-                    inputStyle={{ fontFamily: 'Lato', color: '#9D9DFC' }}
                     value={this.props.auth.email}
                     onChangeText={(text) => this.props.changeEmail(text)}
                 />
                 <Input
                     placeholder="Password"
-                    placeholderTextColor="#9D9DFC"
                     titleStyle={{ fontSize: 18 }}
-                    inputStyle={{ fontFamily: 'Lato', color: '#9D9DFC' }}
                     value={this.props.auth.password}
                     secureTextEntry={true}
                     onChangeText={(text) => this.props.changePassword(text)}
                 />
                 <Input
                     placeholder="Confirm Password"
-                    placeholderTextColor="#9D9DFC"
                     titleStyle={{ fontSize: 18 }}
-                    inputStyle={{ fontFamily: 'Lato', color: '#9D9DFC' }}
                     value={this.props.auth.password_confirm}
                     secureTextEntry={true}
                     onChangeText={(text) => this.props.changePasswordConfirm(text)}
